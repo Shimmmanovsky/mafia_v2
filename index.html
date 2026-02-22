@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+    <title>Mafia Moderator Helper</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="msg-scr">
+    <div id="next-role-hint"></div>
+    <div id="msg-text"></div>
+    <button class="btn b-g" style="width:240px" onclick="closeMsg()">Понятно</button>
+</div>
+
+<div class="hdr">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h2 id="main-title"></h2>
+        <div style="display:flex; gap:8px">
+            <button class="reset-link" style="border-color:#0a84ff; color:#0a84ff" onclick="toggleLog()">Лог</button>
+            <button class="reset-link" onclick="confirmReset()">Сброс</button>
+        </div>
+    </div>
+</div>
+
+<div id="s1" class="s a">
+    <div class="welcome-card">
+        <h3>Правила и порядок 📋</h3>
+        <ul style="font-size:13px; padding-left:18px; color:#8e8e93; line-height:1.4; margin:0">
+            <li><b>Сбор:</b> Впишите имена всех участников.</li>
+            <li><b>Подготовка:</b> Раздайте карты игрокам живьем.</li>
+            <li><b>Знакомство:</b> Отметьте роли в приложении.</li>
+            <li><b>День 1:</b> Игроки знакомятся и рассказывают легенды.</li>
+        </ul>
+    </div>
+    <div id="l1"></div>
+    <div class="f-b">
+        <button class="btn b-b" onclick="addP()">+ Игрок</button>
+        <button class="btn b-g" onclick="if(ps.length>=4){go(1.5)}else{alert('Минимум 4 игрока')}">Далее</button>
+    </div>
+</div>
+
+<div id="s1_5" class="s">
+    <div class="welcome-card">
+        <h3>Шаг 2: Раздача карт 🃏</h3>
+        <p style="font-size:15px; color:#8e8e93">1. Пересчитайте игроков.<br>2. Раздайте игровые карты.<br>3. В следующем окне укажите, сколько спецролей участвует в игре.</p>
+        <p style="font-size:14px; color:#0a84ff; font-weight:bold">Никому не показывайте экран!</p>
+    </div>
+    <div class="f-b">
+        <button class="btn b-o" onclick="go(1)">Назад</button>
+        <button class="btn b-g" onclick="go(2)">Настроить роли</button>
+    </div>
+</div>
+
+<div id="s2" class="s">
+    <div id="lp"></div>
+    <div style="text-align:center;padding:18px;background:#1c1c1e;border-radius:16px;margin-bottom:12px">
+        Всего: <b id="totalC">0</b> | Мирных: <b id="citC" style="color:#0a84ff">0</b>
+    </div>
+    <div class="f-b">
+        <button class="btn b-o" onclick="go(1.5)">Назад</button>
+        <button class="btn b-g" onclick="checkR()">К знакомству</button>
+    </div>
+</div>
+
+<div id="s3" class="s">
+    <div id="roleLimitInfo" style="text-align:center;color:#8e8e93;margin-bottom:12px;font-size:14px"></div>
+    <div id="l3"></div>
+    <div class="f-b"><button class="btn b-g" onclick="nextRS()">Подтвердить</button></div>
+</div>
+
+<div id="s4" class="s">
+    <div id="nightStatusPanel"></div>
+    <div id="voteStat" style="text-align:center;color:#8e8e93;margin-bottom:12px;font-size:14px"></div>
+    <div id="l4"></div>
+    <div class="f-b" id="game-controls">
+        <button id="skB" class="btn b-o" onclick="doAction(null)">Пропустить</button>
+        <button id="cfB" class="btn b-g" onclick="doAction(selId)">Подтвердить</button>
+    </div>
+</div>
+
+<div id="s5" class="s">
+    <div id="finalResultsPanel"></div>
+    <div style="padding:10px"><h4 style="margin:0">Хронология событий 📜</h4></div>
+    <div id="finalLogList" style="background:#1c1c1e; border-radius:16px; padding:12px; margin-bottom:100px"></div>
+    <div class="f-b"><button class="btn b-b" onclick="location.reload()">Новая игра</button></div>
+</div>
+
+<div id="log-overlay" class="overlay" onclick="if(event.target===this)toggleLog()">
+    <div class="overlay-content">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px">
+            <h3 style="margin:0">История игры 📖</h3>
+            <button class="del-btn" onclick="toggleLog()" style="font-size:24px; background:none; border:none; margin:0">✕</button>
+        </div>
+        <div id="log-list"></div>
+    </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
